@@ -1,0 +1,43 @@
+.example {
+    margin: 30px auto;
+    width: 640px;
+    height: 480px;
+    border: 1px solid #000;
+    overflow: hidden;
+    cursor: move;
+}
+
+.example img {
+    display: block;
+}
+
+.position,
+.text,
+.destroy {
+    position: relative;
+}
+.position img,
+.text .wrap,
+.destroy img {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.scroll img {
+    width: 1280px;
+    height: 960px;
+}
+
+.drag {
+    cursor: default;
+    position: relative;
+}
+.drag img {
+    position: absolute;
+    left: 0;
+    top: 0;
+    cursor: move;
+}
