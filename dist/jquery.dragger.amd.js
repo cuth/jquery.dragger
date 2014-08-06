@@ -215,8 +215,7 @@ var bindEvents = function () {
 };
 
 var unbindEvents = function () {
-    this.$el.off('.dragger' + this.id);
-    //$(document).off('.dragger' + this.id);
+    this.$el.add(document).off('.dragger' + this.id);
 };
 
 var initCount = 0;
@@ -235,6 +234,9 @@ var init = function () {
     this.isDragging = false;
     this.isScrolling = false;
 
+    // add -ms-touch-action: none; to make it work in Windows
+    this.el.style.msTouchAction = 'none';
+
     bindEvents.call(this);
     return true;
 };
@@ -246,6 +248,7 @@ var uninit = function () {
     delete this.dragStart;
     delete this.isDragging;
     delete this.isScrolling;
+    this.el.style.msTouchAction = undefined;
     delete this.enabled;
 };
 
@@ -264,6 +267,7 @@ Dragger.prototype.disable = uninit;
 $.fn.Dragger = function (options) {
     return new Dragger(this, options);
 };
+
 
 return Dragger;
 
