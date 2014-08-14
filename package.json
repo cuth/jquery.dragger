@@ -3,10 +3,6 @@
   "version": "1.3.1",
   "description": "Make anything draggable for mobile and desktop width jQuery",
   "main": "dist/jquery.dragger.common.js",
-  "scripts": {
-    "test": "test/index.html",
-    "test-amd": "test/amd.html"
-  },
   "repository": {
     "type": "git",
     "url": "git://github.com/cuth/jquery.dragger.git"
@@ -21,6 +17,9 @@
     "url": "https://github.com/cuth/jquery.dragger/issues"
   },
   "homepage": "https://github.com/cuth/jquery.dragger",
+  "dependencies": {
+    "jquery": ">=1.7.0"
+  },
   "devDependencies": {
     "gulp": "^3.6.2",
     "gulp-rename": "^1.2.0",
