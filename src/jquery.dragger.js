@@ -5,7 +5,8 @@ var defaults = {
     initX: 0,
     initY: 0,
     allowVerticalScrolling: false,
-    allowHorizontalScrolling: false
+    allowHorizontalScrolling: false,
+    target: null
 };
 
 var defaultBounds = {
@@ -193,26 +194,42 @@ var preventClickWhenDrag = function (e) {
 };
 
 var bindEvents = function () {
-    this.$el.on('mousedown.dragger' + this.id, eventMouseDown.bind(this));
-    $(document)
-        .on('mousemove.dragger' + this.id, eventMouseMove.bind(this))
-        .on('mouseup.dragger' + this.id, eventMouseUp.bind(this));
-    this.$el.on('touchstart.dragger' + this.id, eventTouchStart.bind(this));
-    this.$el.on('touchmove.dragger' + this.id, eventTouchMove.bind(this));
-    this.$el.on('touchend.dragger' + this.id, eventTouchEnd.bind(this));
-    this.$el.on('dragstart.dragger' + this.id, preventDragStart.bind(this));
-    this.$el.on('click.dragger' + this.id, preventClickWhenDrag.bind(this));
+    if (this.opts.target) {
+        this.$el.on('mousedown.dragger' + this.id, this.opts.target, eventMouseDown.bind(this));
+        $(document)
+            .on('mousemove.dragger' + this.id, eventMouseMove.bind(this))
+            .on('mouseup.dragger' + this.id, eventMouseUp.bind(this));
+        this.$el.on('touchstart.dragger' + this.id, this.opts.target, eventTouchStart.bind(this));
+        this.$el.on('touchmove.dragger' + this.id, this.opts.target, eventTouchMove.bind(this));
+        this.$el.on('touchend.dragger' + this.id, this.opts.target, eventTouchEnd.bind(this));
+        this.$el.on('dragstart.dragger' + this.id, this.opts.target, preventDragStart.bind(this));
+        this.$el.on('click.dragger' + this.id, this.opts.target, preventClickWhenDrag.bind(this));
+    } else {
+        this.$el.on('mousedown.dragger' + this.id, eventMouseDown.bind(this));
+        $(document)
+            .on('mousemove.dragger' + this.id, eventMouseMove.bind(this))
+            .on('mouseup.dragger' + this.id, eventMouseUp.bind(this));
+        this.$el.on('touchstart.dragger' + this.id, eventTouchStart.bind(this));
+        this.$el.on('touchmove.dragger' + this.id, eventTouchMove.bind(this));
+        this.$el.on('touchend.dragger' + this.id, eventTouchEnd.bind(this));
+        this.$el.on('dragstart.dragger' + this.id, preventDragStart.bind(this));
+        this.$el.on('click.dragger' + this.id, preventClickWhenDrag.bind(this));
+    }
 };
 
 var unbindEvents = function () {
-    this.$el.add(document).off('.dragger' + this.id);
+    if (this.opts.target) {
+        this.$el.off('.dragger' + this.id, this.opts.target);
+        $(document).off('.dragger' + this.id);
+    } else {
+        this.$el.add(document).off('.dragger' + this.id);
+    }
 };
 
 var initCount = 0;
 
 var init = function () {
     if (this.enabled || !this.$el.length) return false;
-    this.id = initCount++;
     this.el = this.$el[0];
 
     // initial position of the element that will be dragged
@@ -228,7 +245,8 @@ var init = function () {
     this.el.style.msTouchAction = 'none';
 
     bindEvents.call(this);
-    return true;
+
+    this.enabled = true;
 };
 
 var uninit = function () {
@@ -244,9 +262,10 @@ var uninit = function () {
 
 var Dragger = function (el, options, bounds) {
     this.$el = $(el);
+    this.id = initCount++;
     this.opts = $.extend({}, defaults, options);
     this.bounds = $.extend({}, defaultBounds, bounds);
-    this.enabled = init.call(this);
+    init.call(this);
 };
 Dragger.prototype.setBounds = setBounds;
 Dragger.prototype.setPosition = setPosition;
