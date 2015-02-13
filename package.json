@@ -1,6 +1,6 @@
 {
   "name": "jquery-dragger",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Make anything draggable for mobile and desktop width jQuery",
   "main": "dist/jquery.dragger.common.js",
   "repository": {
