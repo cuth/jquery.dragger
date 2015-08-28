@@ -1,7 +1,8 @@
-/*  jquery-dragger
- *  version: 1.4.1
- *  https://github.com/cuth/jquery.dragger
- *  @preserve
+/*!
+ * jquery-dragger
+ * https://github.com/cuth/jquery.dragger
+ * @version 1.5.0
+ * @license MIT (c) Jonathan Cuthbert
  */
 
 /*exported Dragger */

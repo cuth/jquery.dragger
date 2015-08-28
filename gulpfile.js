@@ -4,17 +4,18 @@ var insert = require('gulp-insert');
 var pjson = require('./package.json');
 
 var BANNER = "\
-/*  " + pjson.name + "\n\
- *  version: " + pjson.version + "\n\
- *  " + pjson.homepage + "\n\
- *  @preserve\n\
+/*!\n\
+ * " + pjson.name + "\n\
+ * " + pjson.homepage + "\n\
+ * @version " + pjson.version + "\n\
+ * @license MIT (c) Jonathan Cuthbert\n\
  */\n\n";
  var JSHINT_EXPORTED = "/*exported Dragger */\n\n";
 
 var AMD_HEAD    = "define(['jquery'], function ($) {\n\n'use strict';\n\n";
 var AMD_FOOT    = "\n\nreturn Dragger;\n\n});";
 
-var COMMON_HEAD = "'use strict';\n\nvar $ = require('jquery');\n\n";
+var COMMON_HEAD = "'use strict';\n\nvar $ = jQuery || require('jquery');\n\n";
 var COMMON_FOOT = "\n\nmodule.exports = Dragger;";
 
 var GLOBAL_HEAD = "var Dragger = (function ($) {\n\n'use strict';\n\n";
