@@ -7,7 +7,7 @@
 
 'use strict';
 
-var $ = jQuery || require('jquery');
+var $ = require('jquery');
 
 var defaults = {
     start: null,

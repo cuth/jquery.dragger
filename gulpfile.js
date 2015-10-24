@@ -15,7 +15,7 @@ var BANNER = "\
 var AMD_HEAD    = "define(['jquery'], function ($) {\n\n'use strict';\n\n";
 var AMD_FOOT    = "\n\nreturn Dragger;\n\n});";
 
-var COMMON_HEAD = "'use strict';\n\nvar $ = jQuery || require('jquery');\n\n";
+var COMMON_HEAD = "'use strict';\n\nvar $ = require('jquery');\n\n";
 var COMMON_FOOT = "\n\nmodule.exports = Dragger;";
 
 var GLOBAL_HEAD = "var Dragger = (function ($) {\n\n'use strict';\n\n";
